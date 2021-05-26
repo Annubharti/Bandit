@@ -90,16 +90,62 @@ Bandit Level 2 → Level 3
   
   Bandit Level 7 → Level 8
       The password for the next level is stored in the file data.txt next to the word millionth
-      grep millionth data.txt
-      copy millionth password
+  
+        grep millionth data.txt
+        copy millionth password
   
   Bandit Level 8 → Level 9
+    The password for the next level is stored in the file data.txt and is the only line of text that occurs only once
+    ls
+    cat data.txt | sort | uniq -u OR
+                  sort data.txt | uniq -u
+    copy the password
+ 
+ Bandit Level 9 → Level 10
+   The password for the next level is stored in the file data.txt in one of the few human-readable strings, preceded by several ‘=’ characters.
+  
+  strings data.txt | grep “=” 
+  then
+  strings data.txt | grep “==”
+  copy the password
   
   
-  The password for the next level is stored in the file data.txt and is the only line of text that occurs only once
+ Bandit Level 10 → Level 11
+  
+  The password for the next level is stored in the file data.txt, which contains base64 encoded data
 
   Commands you may need to solve this level
   grep, sort, uniq, strings, base64, tr, tar, gzip, bzip2, xxd
+  
+   base64-d data.txt
+  copy the password
+  
+  
+  
+ Bandit Level 10 → Level 11
+  The password for the next level is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions
+
+  Commands you may need to solve this level
+  grep, sort, uniq, strings, base64, tr, tar, gzip, bzip2, xxd
+  
+  
+  cat data.txt |tr 'n-za-mN-ZA-M' a-zA-z
+  copy the password
+  
+  
+  
+  
+  
+  
+  
+  
+  
+   
+  
+  
+  
+
+
   
   
   
