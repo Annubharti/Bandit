@@ -81,6 +81,31 @@ Bandit Level 2 → Level 3
           owned by group bandit6
           33 bytes in size
            
+           ls
+      bandit6@bandit:~$ find / -user bandit7 -group bandit6 -size 33c -type f 2>/dev/null
+      /var/lib/dpkg/info/bandit7.password
+      bandit6@bandit:~$ cat /var/lib/dpkg/info/bandit7.password
+      copy the password
+  
+  
+  Bandit Level 7 → Level 8
+      The password for the next level is stored in the file data.txt next to the word millionth
+      grep millionth data.txt
+      copy millionth password
+  
+  Bandit Level 8 → Level 9
+  
+  
+  The password for the next level is stored in the file data.txt and is the only line of text that occurs only once
+
+  Commands you may need to solve this level
+  grep, sort, uniq, strings, base64, tr, tar, gzip, bzip2, xxd
+  
+  
+  
+  
+  
+           
            
           
            
