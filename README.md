@@ -89,10 +89,11 @@ Bandit Level 2 → Level 3
   
   
   Bandit Level 7 → Level 8
+  
       The password for the next level is stored in the file data.txt next to the word millionth
   
-        grep millionth data.txt
-        copy millionth password
+     grep millionth data.txt
+     copy millionth password
   
   Bandit Level 8 → Level 9
     The password for the next level is stored in the file data.txt and is the only line of text that occurs only once
@@ -114,23 +115,72 @@ Bandit Level 2 → Level 3
   
   The password for the next level is stored in the file data.txt, which contains base64 encoded data
 
-  Commands you may need to solve this level
-  grep, sort, uniq, strings, base64, tr, tar, gzip, bzip2, xxd
   
    base64-d data.txt
   copy the password
   
   
   
- Bandit Level 10 → Level 11
+ Bandit Level 11 → Level 12
   The password for the next level is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions
 
-  Commands you may need to solve this level
-  grep, sort, uniq, strings, base64, tr, tar, gzip, bzip2, xxd
   
   
   cat data.txt |tr 'n-za-mN-ZA-M' a-zA-z
   copy the password
+ 
+ Bandit Level 12 → Level 13
+    The password for the next level is stored in the file data.txt, which is a hexdump of a file that has been repeatedly compressed.
+    For this level it may be useful to create a directory under /tmp in which you can work using mkdir. For example: mkdir /tmp/myname123.
+  ~ ssh bandit12@bandit.labs.overthewire.org -p 2220
+bandit12@melinda:~$ ls
+data.txt
+bandit12@melinda:~$ mkdir /tmp/kan1shka9
+bandit12@melinda:~$ cp data.txt /tmp/kan1shka9
+bandit12@melinda:~$ cd /tmp/kan1shka9
+bandit12@melinda:/tmp/kan1shka9$ ls
+data.txt
+bandit12@melinda:/tmp/kan1shka9$ file data.txt
+data.txt: ASCII text
+bandit12@melinda:/tmp/kan1shka9$ xxd -r data.txt > data_xxd_reverse
+bandit12@melinda:/tmp/kan1shka9$ file data_xxd_reverse
+data_xxd_reverse: gzip compressed data, was "data2.bin", from Unix, last modified: Fri Nov 14 10:32:20 2014, max compression
+bandit12@melinda:/tmp/kan1shka9$ zcat data_xxd_reverse > data_zcat
+bandit12@melinda:/tmp/kan1shka9$ file data_zcat
+data_zcat: bzip2 compressed data, block size = 900k
+bandit12@melinda:/tmp/kan1shka9$ bzip2 -d data_zcat
+bzip2: Can't guess original name for data_zcat -- using data_zcat.out
+bandit12@melinda:/tmp/kan1shka9$ file data_zcat.out
+data_zcat.out: gzip compressed data, was "data4.bin", from Unix, last modified: Fri Nov 14 10:32:20 2014, max compression
+bandit12@melinda:/tmp/kan1shka9$ ls
+data.txt  data_xxd_reverse  data_zcat.out
+bandit12@melinda:/tmp/kan1shka9$ zcat data_zcat.out > data_zcat_2
+bandit12@melinda:/tmp/kan1shka9$ file data_zcat_2
+data_zcat_2: POSIX tar archive (GNU)
+bandit12@melinda:/tmp/kan1shka9$ tar xvf data_zcat_2
+data5.bin
+bandit12@melinda:/tmp/kan1shka9$ file data5.bin
+data5.bin: POSIX tar archive (GNU)
+bandit12@melinda:/tmp/kan1shka9$ tar xvf data5.bin
+data6.bin
+bandit12@melinda:/tmp/kan1shka9$ file data6.bin
+data6.bin: bzip2 compressed data, block size = 900k
+bandit12@melinda:/tmp/kan1shka9$ bzip2 -d data6.bin
+bzip2: Can't guess original name for data6.bin -- using data6.bin.out
+bandit12@melinda:/tmp/kan1shka9$ file data6.bin.out
+data6.bin.out: POSIX tar archive (GNU)
+bandit12@melinda:/tmp/kan1shka9$ tar xvf data6.bin.out
+data8.bin
+bandit12@melinda:/tmp/kan1shka9$ file data8.bin
+data8.bin: gzip compressed data, was "data9.bin", from Unix, last modified: Fri Nov 14 10:32:20 2014, max compression
+bandit12@melinda:/tmp/kan1shka9$ zcat data8.bin > data8_zcat
+bandit12@melinda:/tmp/kan1shka9$ file data8_zcat
+data8_zcat: ASCII text
+bandit12@melinda:/tmp/kan1shka9$ cat data8_zcat
+The password is 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL
+bandit12@melinda:/tmp/kan1shka9$
+  
+  
   
   
   
